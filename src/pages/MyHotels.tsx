@@ -29,11 +29,15 @@ const MyHotels = () => {
       </span>
       <div className="grid grid-cols gap-8">
         {hotelData.map((hotel) => (
-          <div className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5">
+          <div
+            key={hotel._id}
+            className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
+          >
             <h2 className="text-2xl font-bold">{hotel.name}</h2>
             <div className="flex justify-between flex-wrap">
               {hotel.imageUrls.map((image) => (
                 <img
+                  key={image}
                   src={image}
                   alt="hotel-images"
                   className="w-1/5 rounded-lg"
