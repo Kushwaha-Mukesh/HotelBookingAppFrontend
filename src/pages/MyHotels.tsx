@@ -34,13 +34,13 @@ const MyHotels = () => {
             className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
           >
             <h2 className="text-2xl font-bold">{hotel.name}</h2>
-            <div className="flex justify-between flex-wrap">
+            <div className="grid grid-cols-6 gap-2">
               {hotel.imageUrls.map((image) => (
                 <img
                   key={image}
                   src={image}
                   alt="hotel-images"
-                  className="w-1/5 rounded-lg"
+                  className="rounded-lg"
                 />
               ))}
             </div>
