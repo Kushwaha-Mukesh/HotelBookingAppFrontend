@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../apiClient";
 import { useAppContext } from "../contexts/AppContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export type SignInFormDate = {
   email: string;
@@ -10,6 +10,7 @@ export type SignInFormDate = {
 };
 
 const SignIn = () => {
+  const location = useLocation();
   const queryClient = useQueryClient();
   const { showToast } = useAppContext();
   const navigate = useNavigate();
@@ -25,7 +26,8 @@ const SignIn = () => {
       showToast({ message: "Logged In", type: "SUCCESS" });
       await queryClient.invalidateQueries("validateToken");
       // 2. navigate to the home page
-      navigate("/");
+      // location state saved the previous location and if it is there it will redirect to that page
+      navigate(location.state?.from?.pathname || "/");
     },
     onError: (error: Error) => {
       // show the toast

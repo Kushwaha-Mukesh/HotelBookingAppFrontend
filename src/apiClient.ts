@@ -1,6 +1,6 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormDate } from "./pages/SignIn";
-const API_BASE_URL = "https://hotelbookingappbackend-qpsb.onrender.com";
+const API_BASE_URL = "http://localhost:7000";
 
 export type HotelType = {
   _id: string;
@@ -179,6 +179,15 @@ export const searchHotels = async (
 
   if (!response.ok) {
     throw new Error("Error fetching hotels");
+  }
+
+  return response.json();
+};
+
+export const fetchHotelById = async (hotelId: string): Promise<HotelType> => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels/detail/${hotelId}`);
+  if (!response.ok) {
+    throw new Error("Error fetching hotel");
   }
 
   return response.json();
