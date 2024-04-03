@@ -3,6 +3,19 @@ import { RegisterFormData } from "./pages/Register";
 import { SignInFormDate } from "./pages/SignIn";
 const API_BASE_URL = "http://localhost:7000";
 
+export type BookingType = {
+  _id: string;
+  userId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  adultCount: number;
+  childCount: number;
+  checkIn: Date;
+  checkOut: Date;
+  totalCost: number;
+};
+
 export type HotelType = {
   _id: string;
   userId: string;
@@ -18,6 +31,7 @@ export type HotelType = {
   starRating: number;
   imageUrls: string[];
   lastUpdated: Date;
+  bookings: BookingType[];
 };
 
 export const register = async (formData: RegisterFormData) => {
@@ -259,4 +273,16 @@ export const createRoomBooking = async (formData: BookingFormData) => {
   if (!response.ok) {
     throw new Error("Error booking room");
   }
+};
+
+export const fetchMyBookings = async (): Promise<HotelType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels/getMyBookings`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Unable to fetch my-bookings!");
+  }
+
+  return response.json();
 };
